@@ -52,7 +52,11 @@
     </div>
   </form>
 
-  <div class="grid"> </div>
+  <div class="flex" v-for="i in secondY + 1">
+    <div v-for="j in secondX + 1">
+      <div class="w-4 h-4 border border-black text-white"></div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
