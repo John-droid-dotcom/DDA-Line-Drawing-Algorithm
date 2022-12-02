@@ -52,9 +52,12 @@
     </div>
   </form>
 
-  <div class="flex" v-for="i in secondY + 1">
-    <div v-for="j in secondX + 1">
-      <div class="w-4 h-4 border border-black text-white"></div>
+  <div class="flex" v-if="!rasterHidden" v-for="i in secondY">
+    <div v-for="j in secondX">
+      <div
+        class="w-4 h-4 border border-black"
+        :class="rows[j][i] ? 'bg-black' : ''"
+      ></div>
     </div>
   </div>
 </template>
@@ -72,17 +75,52 @@ export default {
       steps: 0,
       yInc: 0,
       xInc: 0,
+      rows: [],
+      rasterHidden: true,
+      bgColor: "bg-black",
     };
   },
   props: ["stepsTaken", "xIncrement", "yIncrement"],
   methods: {
     calculatePixel() {
+      this.rows = [];
       this.difX = this.secondX - this.firstX;
       this.difY = this.secondY - this.firstY;
       this.steps = Math.max(Math.abs(this.difX), Math.abs(this.difY));
 
       this.xInc = this.difX / this.steps;
       this.yInc = this.difY / this.steps;
+
+      for (let i = 0; i <= this.secondX; i++) {
+        let row = [];
+        for (let j = 0; j <= this.secondY; j++) {
+          row.push(false);
+        }
+        this.rows.push(row);
+      }
+      console.log(
+        this.rows,
+        "original array",
+        this.steps,
+        this.xInc,
+        this.yInc
+      );
+
+      let x = this.firstX;
+      let y = this.firstY;
+      for (let i = 0; i <= this.steps; i++) {
+        this.rows[x][y] = true;
+        console.log(x, y, "the increments");
+        x = x + this.xInc;
+        y = y + this.yInc;
+        console.log(x, y, "the increments no round");
+
+        x = Math.round(x);
+        y = Math.round(y);
+      }
+
+      console.log(this.rows, "its here");
+      this.rasterHidden = false;
     },
   },
 };
