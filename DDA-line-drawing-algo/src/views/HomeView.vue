@@ -1,6 +1,10 @@
 <template>
   <HeaderTitle :title="titleString"></HeaderTitle>
-  <ParagraphComp :paragrpah="paraString"></ParagraphComp>
+  <p class="text-center my-4 text-xl mx-16"
+    >This is a program that tries to depict the DDA line drawing algorithm.
+    Enter your intial and final co-ordiante value of the line and it will create
+    the corresponding image in pixel.</p
+  >
   <InputFields></InputFields>
 </template>
 
@@ -13,11 +17,9 @@ export default {
   data() {
     return {
       titleString: "Digital Differential Analyzer (DDA) Line Drawing Algorithm",
-      paraString:
-        "This is a program that tries to depict the DDA line drawing algorithm. Enter your intial and final co-ordiante value of the line and it will create the corresponding image in pixel.",
     };
   },
-  props: ["title", "paragraph"],
+  props: ["title"],
   components: {
     HeaderTitle,
     ParagraphComp,
